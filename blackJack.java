@@ -1,21 +1,11 @@
-class blackJack {
-	private int suit;
-	private int number;
-	public void Card(int number, int suit) {
-		setNumber(number);
-		this.Deck = Deck;
+public class blackJack {
+	public static void main(String[] args) {
+		boolean e = playBlackJack();
 	}
-	public int setNumber() {
-		this.number = number;
+	static boolean playBlackJack(){
+		Deck deck;
+		deck = new Deck();
+		deck.shuffle();
+		return true; 
 	}
-	public int getNumber() {
-		return this.number;
-	}
-	public void setSuit() {
-		this.suit = suit;
-	}
-	public  void suit() {
-		return this.suit;
-	}
-
 }
