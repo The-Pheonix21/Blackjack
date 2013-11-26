@@ -1,58 +1,61 @@
-public class BlackjackHand {
-  int totalHandValue;
-  int cardCount;
-   boolean ace = false;
-   boolean aceHigh = false;
-   public BlackjackHand() {
-           // Create a Hand object that is initially empty.
-      totalHandValue=0;
-      cardCount=0;
+public class blackJackHand {
+	int totalHandValue;  // black jack value of the hand
+	int cardCount;	//number of cards in the hand
+	
+	boolean ace = false;//ace there true or false
+	boolean aceHigh = false;// used 11 or not
+	Card [] handCards = new Card[11];
+	public blackJackHand(){
+		totalHandValue=0;
+		cardCount=0;
 
-   }
-   
-   public void handClear() {
-         // Discard all the cards from the hand.
-      totalHandValue=0;
-      cardCount=0;
-   }
-   
-   
-   public int getCardCount() {
-         // Return the number of cards in the hand.
-      return cardCount;
-   }
-   
-   
-   public int BlackjackValue(Card cdealt) {
-            // Returns the value of this hand for the
-            // game of Blackjack
-      int cardVal;
-        cardCount++;
-       
-             cardVal = cdealt.getValue();  // The normal value, 1 to 13.
-             if (cardVal > 10) {
-                 cardVal = 10;   // For a Jack, Queen, or King.
-             }
-             if (cardVal == 1) {
-                 ace = true;     // There is at least one ace.
-             }
-             totalHandValue = totalHandValue + cardVal;
-         
+	}
+	public void addCard(Card newCard){
+		handCards[cardCount] = newCard;
+		cardCount++;
+	}
+	public Card getCard(int i){
+		return handCards[i];
+	}
+	// clears everything for the hand
+	public void handClear(){
+		for (int i=0; i<cardCount; i++) {
+			handCards[i]=null;
+		}
+		totalHandValue=0;
+		cardCount=0;
+		aceHigh=false;
+		ace=false;
 
-             // Now, val is the value of the hand, counting any ace as 1.
-             // If there is an ace, and if changing its value from 1 to 
-             // 11 would leave the score less than or equal to 21,
-             // then do so by adding the extra 10 points to val. 
+	}
+	//card counter illegal
+	public int getCardCount(){
+		return cardCount;
+	}
+	// value of hand
+	public int BlackjackValue(){
+		int cardVal;
+		totalHandValue=0;
+		Card temp;
+		for (int i=0; i < cardCount; i++) {
+			temp= handCards[i];
+			cardVal = temp.getValue();
+			if (cardVal > 10) {
+				cardVal = 10;
+			}
+			if (cardVal == 1) {
+				ace=true;
+			}
+			totalHandValue = totalHandValue + cardVal;
+		}
+		if (ace == true && totalHandValue + 10 <= 21) {
+		totalHandValue = totalHandValue + 10;		
+		aceHigh=true;}	
+		if (totalHandValue > 21 && aceHigh) {
+			totalHandValue-=10;
+			aceHigh=false;
+		}
+		return totalHandValue;
+	}
 
-          if ( ace == true  &&  totalHandValue + 10 <= 21 ){
-              totalHandValue = totalHandValue + 10;
-             aceHigh=true;}
-             if (totalHandValue > 21 && aceHigh){
-              totalHandValue=totalHandValue - 10;
-              aceHigh=false;
-             }
-          return totalHandValue;
-
-     }  // end getBlackjackValue()
-  
 }
